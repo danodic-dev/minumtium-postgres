@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+sqlalchemy = "*"
+pg8000 = "*"
+minumtium = {editable = true, path = "./../../minumtium"}
+
+[dev-packages]
+pytest = "*"
+build = "*"
+twine = "*"
+
+[requires]
+python_version = "3"
+
+[scripts]
+unittest = "pytest ./tests/unit --tb=native -s --disable-warnings"
+integratedtest = "pytest ./tests/integrated --tb=native -s --disable-warnings"
+pipytest = "twine upload -r testpypi dist/*"
+pipy = "twine upload dist/*"
