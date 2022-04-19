@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 sqlalchemy = "*"
 pg8000 = "*"
-minumtium = {editable = true, path = "./../../minumtium"}
+minumtium = "*"
 
 [dev-packages]
 pytest = "*"
