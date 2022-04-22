@@ -1,6 +1,7 @@
 # Minumtium Postgres
 
-A postgres database adapter for the [minumtium](https://github.com/danodic-dev/minumtium) library.
+A postgres database adapter for the [minumtium](https://github.com/danodic-dev/minumtium) library. It uses SQL Alchemy
+as its abstraction library alongside with pg8000 as the connection driver.
 
 ### What can I use it for?
 
@@ -32,12 +33,12 @@ from minumtium_simple_jwt_auth import SimpleJwtAuthentication
 from minumtium_postgres import MinumtiumPostgresAdapter, MinumtiumPostgresAdapterConfig
 
 config = MinumtiumPostgresAdapterConfig(
-        username='minumtium',
-        password='samplepassword',
-        host='localhost',
-        port=5432,
-        dbname='minumtium',
-        schema_name='minumtium')
+    username='minumtium',
+    password='samplepassword',
+    host='localhost',
+    port=5432,
+    dbname='minumtium',
+    schema_name='minumtium')
 
 db_adapter = SqlAlchemyAdapter({config, 'posts')
 auth_adapter = SimpleJwtAuthentication(configuration={
