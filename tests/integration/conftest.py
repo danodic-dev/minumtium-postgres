@@ -7,7 +7,7 @@ def adapter_config() -> MinumtiumPostgresAdapterConfig:
     return MinumtiumPostgresAdapterConfig(
         username='minumtium',
         password='samplepassword',
-        host='localhost',
+        host='127.0.0.1',
         port=5432,
         dbname='minumtium',
         schema_name='minumtium')
