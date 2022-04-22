@@ -28,12 +28,21 @@ jobs:
         run: pipx install pipenv
       - name: Setup Environment
         run: pipenv install --dev
-      - name: Unit Tests
+      - name: Integration Tests
         run: pipenv run python -m pytest ./tests/integration
   test_and_scan:
     needs:
       - test
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14.2
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: minumtium
+          POSTGRES_PASSWORD: samplepassword
+          POSTGRES_DB: minumtium
     steps:
       - uses: actions/checkout@v2
         with:
@@ -46,10 +55,8 @@ jobs:
         run: pipx install pipenv
       - name: Setup Environment
         run: pipenv install --dev
-      - name: Unit Tests
-        run: pipenv run python -m pytest ./tests/integration --cov=tests/ --cov-report xml:coverage.xml
-      - name: Coverage Report
-        run: pipenv run python -m coverage xml -i
+      - name: Integration Tests
+        run: pipenv run python -m pytest ./tests/integration
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
