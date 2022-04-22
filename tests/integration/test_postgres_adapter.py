@@ -149,7 +149,7 @@ def database_connection(adapter_config: MinumtiumPostgresAdapterConfig) -> pg800
         password=adapter_config.password)
 
 
-def setup_database(database_connection: pg8000.Connection, schema_setup:str):
+def setup_database(database_connection: pg8000.Connection, schema_setup: str):
     database_connection.run(schema_setup)
 
 
@@ -181,8 +181,9 @@ def adapter_with_some_data(database_connection: pg8000.Connection,
 
 @pytest.fixture(scope='function')
 def adapter(database_connection: pg8000.Connection,
-            adapter_config: MinumtiumPostgresAdapterConfig) -> MinumtiumPostgresAdapter:
-    setup_database(database_connection)
+            adapter_config: MinumtiumPostgresAdapterConfig,
+            schema_setup: str) -> MinumtiumPostgresAdapter:
+    setup_database(database_connection, schema_setup)
     adapter = MinumtiumPostgresAdapter(adapter_config, 'posts')
     yield adapter
     database_connection.close()
