@@ -142,17 +142,6 @@ def test_posts_parsing_summary(adapter_with_data):
     assert parsed.timestamp == datetime(2022, 2, 22, 12, 22, 22, 222222)
 
 
-@pytest.fixture
-def adapter_config() -> MinumtiumPostgresAdapterConfig:
-    return MinumtiumPostgresAdapterConfig(
-        username='minumtium',
-        password='samplepassword',
-        host='localhost',
-        port=5432,
-        dbname='minumtium',
-        schema_name='minumtium')
-
-
 @pytest.fixture(scope='function')
 def database_connection(adapter_config: MinumtiumPostgresAdapterConfig) -> pg8000.Connection:
     return pg8000.native.Connection(
@@ -160,16 +149,7 @@ def database_connection(adapter_config: MinumtiumPostgresAdapterConfig) -> pg800
         password=adapter_config.password)
 
 
-def setup_database(database_connection: pg8000.Connection):
-    schema_setup = """
-        DROP SCHEMA IF EXISTS minumtium CASCADE;
-        CREATE SCHEMA minumtium;
-        GRANT ALL ON SCHEMA minumtium TO postgres;
-        GRANT ALL ON SCHEMA minumtium TO public;
-        GRANT ALL ON SCHEMA minumtium TO minumtium;
-        SET search_path = minumtium;
-    """
-
+def setup_database(database_connection: pg8000.Connection, schema_setup:str):
     database_connection.run(schema_setup)
 
 
