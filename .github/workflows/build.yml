@@ -1,4 +1,4 @@
-name: unit tests & static code analysis
+name: integration tests & static code analysis
 on:
   push:
   pull_request:
@@ -29,7 +29,7 @@ jobs:
       - name: Setup Environment
         run: pipenv install --dev
       - name: Unit Tests
-        run: pipenv run python -m pytest ./tests/
+        run: pipenv run python -m pytest ./tests/integration
   test_and_scan:
     needs:
       - test
@@ -47,7 +47,7 @@ jobs:
       - name: Setup Environment
         run: pipenv install --dev
       - name: Unit Tests
-        run: pipenv run python -m pytest ./tests/ --cov=tests/ --cov-report xml:coverage.xml
+        run: pipenv run python -m pytest ./tests/integration --cov=tests/ --cov-report xml:coverage.xml
       - name: Coverage Report
         run: pipenv run python -m coverage xml -i
       - name: SonarCloud Scan
