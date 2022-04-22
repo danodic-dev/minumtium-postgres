@@ -21,6 +21,6 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     packages=setuptools.find_packages(),
-    install_requires=['sqlalchemy', 'pg8000', 'minumtium'],
+    install_requires=['sqlalchemy', 'pg8000', 'minumtium', 'pydantic'],
     python_requires=">=3.6",
 )
