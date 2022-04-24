@@ -28,7 +28,7 @@ class MinumtiumPostgresAdapter(DatabaseAdapter):
         self.table = Table(table_name, self.metadata_obj, autoload=True)
 
         self.cast_columns = self._setup_cast_columns(self.table)
-        self.summary_columns = self._setup_summary_columns(self.table)
+        self.summary_columns_value = None
 
     def initialize(self, config: MinumtiumPostgresAdapterConfig, engine=None):
         engine = engine or self.create_postgres(config)
@@ -37,11 +37,13 @@ class MinumtiumPostgresAdapter(DatabaseAdapter):
 
     @staticmethod
     def _setup_cast_columns(table):
-        return [cast(table.c.id, String()),
-                table.c.title,
-                table.c.body,
-                table.c.author,
-                cast(table.c.timestamp, String())]
+        columns = []
+        for name, column in table.c.items():
+            if name in ['id', 'timestamp']:
+                columns.append(cast(column, String()))
+                continue
+            columns.append(column)
+        return columns
 
     @staticmethod
     def _setup_summary_columns(table):
@@ -67,6 +69,12 @@ class MinumtiumPostgresAdapter(DatabaseAdapter):
     def _cast_results(query_results):
         return [dict(result) for result in query_results]
 
+    @property
+    def summary_columns(self):
+        if not self.summary_columns_value:
+            self.summary_columns_value = self._setup_summary_columns()
+        return self.summary_columns_value
+
     def find_by_id(self, id: str):
         statement = (self.table
                      .select()
@@ -83,7 +91,6 @@ class MinumtiumPostgresAdapter(DatabaseAdapter):
         if not result:
             raise DataNotFoundException(f'No data found at {self.table_name} for id: {id}')
 
-        result = dict(result)
         return dict(result)
 
     def find_by_criteria(self, query_criteria: Dict):
