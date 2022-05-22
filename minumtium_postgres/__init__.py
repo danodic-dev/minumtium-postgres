@@ -189,8 +189,7 @@ class MinumtiumPostgresAdapter(DatabaseAdapter):
         return self._cast_results(results.mappings().all())
 
     def delete(self, id: str) -> None:
-        statement = (self.table.delete()
-                     .where(self.table.c.id == id))
+        statement = (self.table.delete().where(self.table.c.id == int(id)))
 
         with self.engine.connect() as connection:
             with connection.begin():
