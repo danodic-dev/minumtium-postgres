@@ -1,5 +1,5 @@
-## minumtium-sql-alchemy 1.0.0
+## minumtium-sql-alchemy 1.0.1
 
-### Added
+### Fixed
 
-- Initial version of database adapter for postgres database.
+- Adding missing cast in id field that was breaking the delete method.
