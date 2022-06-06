@@ -29,12 +29,12 @@ def test_get_database_version(database_with_version_table):
 
 
 def test_run_migrations(mock_migration, mock_table_name, database, schema):
-    run_migrations([mock_migration], database, schema)
+    run_migrations([mock_migration], database, "", schema)
     assert inspect(database).has_table(mock_table_name)
 
 
 def test_apply_any_migrations(some_migrations, mock_table_name, another_mock_table_name, database, schema):
-    run_migrations(some_migrations, database, schema)
+    run_migrations(some_migrations, database, "", schema)
     assert inspect(database).has_table(mock_table_name)
     assert inspect(database).has_table(another_mock_table_name)
 
