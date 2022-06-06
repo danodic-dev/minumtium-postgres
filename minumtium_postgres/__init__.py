@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import functools
 from typing import Dict, List
 
 from minumtium.infra.database import DatabaseAdapter, DataFetchException, DataNotFoundException, DataInsertException
@@ -21,19 +20,25 @@ class MinumtiumPostgresAdapterConfig(BaseModel):
 
 class MinumtiumPostgresAdapter(DatabaseAdapter):
 
-    def __init__(self, config: MinumtiumPostgresAdapterConfig, table_name: str, engine=None):
-        self.engine = self.initialize(config, engine)
+    def __init__(self, config: MinumtiumPostgresAdapterConfig, table_name: str, engine=None, table_prefix=None):
+        self.engine = self.initialize(config, engine, table_prefix)
         self.metadata_obj = MetaData(bind=self.engine, schema=config.schema_name)
-        self.table_name = table_name
-        self.table = Table(table_name, self.metadata_obj, autoload=True)
+        self.table_name = self.__get_table_name(table_name, table_prefix)
+        self.table = Table(self.table_name, self.metadata_obj, autoload=True)
 
         self.cast_columns = self._setup_cast_columns(self.table)
         self.summary_columns_value = None
 
-    def initialize(self, config: MinumtiumPostgresAdapterConfig, engine=None):
+    def initialize(self, config: MinumtiumPostgresAdapterConfig, engine=None, table_prefix=None):
         engine = engine or self.create_postgres(config)
-        self._migrate(engine, schema=config.schema_name)
+        self._migrate(engine, schema=config.schema_name, table_prefix=table_prefix)
         return engine
+
+    @staticmethod
+    def __get_table_name(table_name, table_prefix):
+        if table_prefix:
+            return f'{table_prefix}_{table_name}'
+        return table_name
 
     @staticmethod
     def _setup_cast_columns(table):
@@ -62,8 +67,8 @@ class MinumtiumPostgresAdapter(DatabaseAdapter):
         return create_engine(f"postgresql+pg8000://{username}:{password}@{host}:{port}/{dbname}")
 
     @staticmethod
-    def _migrate(engine, schema):
-        apply_migrations(engine, schema)
+    def _migrate(engine, schema, table_prefix):
+        apply_migrations(engine, schema, table_prefix)
 
     @staticmethod
     def _cast_results(query_results):

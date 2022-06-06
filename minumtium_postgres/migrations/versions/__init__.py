@@ -21,11 +21,11 @@ class MigrationVersion(ABC):
         ...
 
     @abstractmethod
-    def do(self, engine, schema=None) -> None:
+    def do(self, engine, table_prefix=None, schema=None) -> None:
         ...
 
     @abstractmethod
-    def undo(self, engine, schema=None) -> None:
+    def undo(self, engine, table_prefix=None, schema=None) -> None:
         ...
 
     def __lt__(self, other: MigrationVersion):
