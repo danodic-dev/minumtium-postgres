@@ -1,5 +1,6 @@
-## minumtium-sql-alchemy 1.0.1
+## minumtium-sql-alchemy 1.1.0
 
-### Fixed
+### Changed
 
-- Adding missing cast in id field that was breaking the delete method.
+- Changed adapter to get a prefix name.
+- Changed migrations to get a table prefix name.

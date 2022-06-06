@@ -11,8 +11,9 @@ from minumtium_postgres.migrations import (has_version_table,
                                            MigrationVersion,
                                            run_migrations,
                                            apply_migrations,
-                                           update_database_version,
-                                           MIGRATION_TABLE_NAME)
+                                           update_database_version)
+
+from minumtium_postgres.migrations.versions.version_0 import Version0
 
 
 def test_has_version_table(database_with_version_table):
@@ -120,13 +121,13 @@ def schema():
 def database_with_version_table(database):
     def create_version_table(database):
         meta = MetaData()
-        Table(MIGRATION_TABLE_NAME, meta, Column('version', Integer))
+        Table(Version0.migration_table_name(), meta, Column('version', Integer))
         meta.create_all(database)
 
     def insert_version(database, version):
         with database.connect() as connection:
             with connection.begin():
-                statement = text(f"INSERT INTO {MIGRATION_TABLE_NAME} VALUES(:version)")
+                statement = text(f"INSERT INTO {Version0.migration_table_name()} VALUES(:version)")
                 connection.execute(statement, {'version': version})
 
     create_version_table(database)
