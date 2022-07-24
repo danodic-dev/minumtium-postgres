@@ -17,7 +17,6 @@ class MinumtiumPostgresAdapterConfig(BaseModel):
     port: int
     dbname: str
     schema_name: str
-    unix_socket: str
 
 
 class MinumtiumPostgresAdapter(DatabaseAdapter):
@@ -68,7 +67,7 @@ class MinumtiumPostgresAdapter(DatabaseAdapter):
         dbname = config.dbname
 
         if config.use_unix_socket:
-            create_engine(f"postgresql+pg8000://{username}:{password}@/{dbname}?unix_socket={config.unix_socket}")
+            create_engine(f"postgresql+pg8000://{username}:{password}@/{dbname}?unix_socket={config.host}")
 
         return create_engine(f"postgresql+pg8000://{username}:{password}@{host}:{port}/{dbname}")
 
