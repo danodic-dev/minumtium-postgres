@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2022-07-24
+
+### Changed
+
+- Changed adapter to allow connecting to a socket.
+- Fixed migration bug.
+
 ## [1.1.0] - 2022-06-5
 
 ### Changed

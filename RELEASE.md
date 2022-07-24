@@ -1,6 +1,6 @@
-## minumtium-sql-alchemy 1.1.0
+## minumtium-sql-alchemy 1.2.0
 
 ### Changed
 
-- Changed adapter to get a prefix name.
-- Changed migrations to get a table prefix name.
+- Changed adapter to allow connecting to a socket.
+- Fixed migration bug.

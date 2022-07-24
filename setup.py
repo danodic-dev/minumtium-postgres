@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="minumtium_postgres",
-    version="1.1.0",
+    version="1.2.0",
     author="Danilo Guimaraes (danodic)",
     author_email="danilo@danodic.dev",
     description="A postgres database adapter for the minumtium library.",
