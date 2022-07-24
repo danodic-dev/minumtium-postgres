@@ -20,7 +20,7 @@ def get_database_version(engine, table_prefix=None):
 
 def run_migrations(migrations, engine, table_prefix, schema):
     for migration in migrations:
-        migration.do(engine, table_prefix)
+        migration.do(engine, table_prefix, schema)
 
 
 def update_database_version(engine, version: int, table_prefix=None):
