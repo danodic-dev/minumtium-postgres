@@ -10,6 +10,7 @@ from minumtium_postgres.migrations import apply_migrations
 
 
 class MinumtiumPostgresAdapterConfig(BaseModel):
+    use_unix_socket: bool = False
     username: str
     password: str
     host: str
@@ -64,11 +65,15 @@ class MinumtiumPostgresAdapter(DatabaseAdapter):
         host = config.host
         port = config.port
         dbname = config.dbname
+
+        if config.use_unix_socket:
+            create_engine(f"postgresql+pg8000://{username}:{password}@/{dbname}?unix_socket={config.host}")
+
         return create_engine(f"postgresql+pg8000://{username}:{password}@{host}:{port}/{dbname}")
 
     @staticmethod
     def _migrate(engine, schema, table_prefix):
-        apply_migrations(engine, schema, table_prefix)
+        apply_migrations(engine, schema, table_prefix=table_prefix)
 
     @staticmethod
     def _cast_results(query_results):
