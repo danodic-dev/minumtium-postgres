@@ -76,7 +76,7 @@ def some_migrations(another_mock_table_name, mock_migration) -> List[MigrationVe
         def get_version(self) -> int:
             return 1
 
-        def do(self, engine, schema, **kwargs) -> None:
+        def do(self, engine, table_prdeix=None, schema=None) -> None:
             meta = MetaData(schema=schema)
 
             table = Table(
@@ -97,7 +97,7 @@ def mock_migration(mock_table_name) -> MigrationVersion:
         def get_version(self) -> int:
             return 0
 
-        def do(self, engine, schema, **kwargs) -> None:
+        def do(self, engine, table_prdeix=None, schema=None) -> None:
             meta = MetaData(schema=schema)
 
             table = Table(
