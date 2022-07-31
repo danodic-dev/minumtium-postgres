@@ -1,6 +1,5 @@
-## minumtium-sql-alchemy 1.2.0
+## minumtium-sql-alchemy 1.2.1
 
-### Changed
+### Fixed
 
-- Changed adapter to allow connecting to a socket.
-- Fixed migration bug.
+- Fix bug in which engine with socket was not being returned properly.

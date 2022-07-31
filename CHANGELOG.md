@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2022-07-31
+
+### Fixed
+
+- Fix bug in which engine with socket was not being returned properly.
+
 ## [1.2.0] - 2022-07-24
 
 ### Changed
@@ -21,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed adapter to get a prefix name.
 - Changed migrations to get a table prefix name.
 
-## [1.0.1] - 2022-05-22
+## [1.0.1] - 2022-05-22 
 
 ### Fix
 
