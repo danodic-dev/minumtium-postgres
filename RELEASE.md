@@ -1,5 +1,5 @@
-## minumtium-sql-alchemy 1.2.1
+## minumtium-sql-alchemy 1.2.2
 
 ### Fixed
 
-- Fix bug in which engine with socket was not being returned properly.
+- Trying to not be an idiot.
