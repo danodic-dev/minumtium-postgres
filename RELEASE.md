@@ -1,5 +1,5 @@
-## minumtium-sql-alchemy 1.2.2
+## minumtium-sql-alchemy 1.2.3
 
 ### Fixed
 
-- Trying to not be an idiot.
+- Fix connection string for unix socket.
