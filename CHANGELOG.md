@@ -17,6 +17,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed?
 
+- Fix connection string for unix socket.
+
+## [1.2.2] - 2022-07-31
+
+### Fixed?
+
 - Trying to not be an idiot.
 
 ## [1.2.1] - 2022-07-31
